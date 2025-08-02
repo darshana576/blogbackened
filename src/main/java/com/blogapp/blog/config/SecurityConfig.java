@@ -60,37 +60,50 @@ public class SecurityConfig {
 			"/swagger-resources/**",
 			"/swagger-ui/**",
 			"/webjars/**"
-	}; 
-	
-	
-	
+	};
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
-		.cors()
-		.and()
-		.csrf()
-		.disable()
-		.authorizeHttpRequests()
-		.requestMatchers(PUBLIC_URL).permitAll()
-		.requestMatchers(HttpMethod.GET).permitAll()
-		.anyRequest()
-		.authenticated()
-		.and()
-		.exceptionHandling().authenticationEntryPoint(this.jwtAuthenticationEntryPoint)
-		.and()
-		.sessionManagement()
-		.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and()
-		.authenticationProvider(this.authenticationProvider())
-		.addFilterBefore(this.jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-		
-		/*httpSecurity.authenticationProvider(this.daoAuthenticationProvider());
-		
-		DefaultSecurityFilterChain build = httpSecurity.build(); */
+				.cors()
+				.and()
+				.csrf().disable()
+				.authorizeHttpRequests()
+				.anyRequest().permitAll()   // allow all requests
+				.and()
+				.sessionManagement().disable(); // optional: disable sessions
+
 		return httpSecurity.build();
 	}
+
+
+
+//	@Bean
+//	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+//		httpSecurity
+//		.cors()
+//		.and()
+//		.csrf()
+//		.disable()
+//		.authorizeHttpRequests()
+//		.requestMatchers(PUBLIC_URL).permitAll()
+//		.requestMatchers(HttpMethod.GET).permitAll()
+//		.anyRequest()
+//		.authenticated()
+//		.and()
+//		.exceptionHandling().authenticationEntryPoint(this.jwtAuthenticationEntryPoint)
+//		.and()
+//		.sessionManagement()
+//		.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//		.and()
+//		.authenticationProvider(this.authenticationProvider())
+//		.addFilterBefore(this.jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+//
+//		/*httpSecurity.authenticationProvider(this.daoAuthenticationProvider());
+//
+//		DefaultSecurityFilterChain build = httpSecurity.build(); */
+//		return httpSecurity.build();
+//	}
 	
 	@Bean
 	public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration configuration) throws Exception {

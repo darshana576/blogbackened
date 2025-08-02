@@ -32,7 +32,7 @@ public class CategoryController {
 	@Autowired
 	private CategoryServiceImpl categoryService;
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+//	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/")
 	public ResponseEntity<CategoryDto> createCategory(@Valid @RequestBody CategoryDto categoryDto){
 		return new ResponseEntity<>(this.categoryService.createCategory(categoryDto),HttpStatus.CREATED);
@@ -43,13 +43,13 @@ public class CategoryController {
 		return new ResponseEntity<>(this.categoryService.getCategoryId(categoryId),HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+//	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping("/{categoryId}")
 	public ResponseEntity<CategoryDto> updateCategory(@PathVariable Integer categoryId,@Valid @RequestBody CategoryDto categoryDto){
 		return new ResponseEntity<>(this.categoryService.updateCategory(categoryDto,categoryId),HttpStatus.CREATED);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+//	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping("/{categoryId}")
 	public ResponseEntity<?> deleteCategory(@PathVariable Integer categoryId){
 		this.categoryService.deleteCategory(categoryId);
